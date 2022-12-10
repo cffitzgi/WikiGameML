@@ -4,6 +4,7 @@ import GenTestData
 from GenTestData import GenTestData as gen
 import IO
 import requests
+import demo
 
 RANDOM = "https://en.wikipedia.org/wiki/Special:Random"
 
@@ -36,6 +37,8 @@ if __name__ == '__main__':
     print("done\nWriting Dataset 2...", end='')
     IO.append_test_data_csv(raw_data, out_file)
     print("done")
+
+    demo.demo()
 
     #exit()
 
