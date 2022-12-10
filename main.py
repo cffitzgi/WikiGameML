@@ -79,6 +79,7 @@ if __name__ == '__main__':
     #start loop:
         #run A* search over current database
         #if not found, expand to n+1 from starting_article
+    #print path
 
     exit()
 
