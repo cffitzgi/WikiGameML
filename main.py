@@ -67,9 +67,10 @@ if __name__ == '__main__':
         #do 3-deep search from connected articles (i.e. add all to database)
     #if target_article is not already in database?
         #do 3-deep search from connected articles (i.e. add all to database)
-    n = 5 #initial depth from starting_article
+    n = 3 #initial depth from starting_article
+    #add all articles n=3 deep to dataset, if not already searched
     #start loop:
-        #run A* search
+        #run A* search over current database
         #if not found, expand to n+1 from starting_article
 
     exit()
