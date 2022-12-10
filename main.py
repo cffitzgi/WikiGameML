@@ -3,6 +3,7 @@ import WikiRead
 import GenTestData
 from GenTestData import GenTestData as gen
 import IO
+import requests
 
 RANDOM = "https://en.wikipedia.org/wiki/Special:Random"
 
@@ -60,9 +61,12 @@ if __name__ == '__main__':
     starting_article = input("Please enter a Wikipedia URL to start from...")
     target_article = input("Please enter a Wikipedia URL to end with...")
     #if starting_article is not a valid link?
-        #starting_article = input("Please enter a Wikipedia URL to start from...") #ask again
-    #if target_article is not a valid link?
-        #target_article = input("Please enter a Wikipedia URL to end with...") #ask again
+    try:
+        page = requests.get(starting_article)
+        page2 = requests.get(target_article)
+    except:
+        print("Invalid URL") #ask again
+        exit()
     #if starting_article is not already in database?
         #do 3-deep search from connected articles (i.e. add all to database)
     #if target_article is not already in database?
