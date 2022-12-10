@@ -2,6 +2,9 @@ from bs4 import BeautifulSoup as bs
 import requests
 import re
 
+# TODO: Look into Wikipedia's edit page to read an article's unformatted text content.
+
+# TODO: Split into the scrapper controller class and a data model class.
 
 class WikiRead:
     links = None
@@ -19,6 +22,7 @@ class WikiRead:
         self.links = self.get_page_links()          # Check to see if it contains the goal.
         #self.navigations = self.get_navigation()    # If categories are big match
         self.categories = self.get_categories()     # Heuristic GOAT (average similarity to goal categories)
+
 
     def __str__(self):
         s = ""
