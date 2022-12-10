@@ -17,8 +17,16 @@ class WikiRead:
         self.soup = self.soup.find("div", id="content")
 
         self.links = self.get_page_links()          # Check to see if it contains the goal.
-        self.navigations = self.get_navigation()    # If categories are big match
+        #self.navigations = self.get_navigation()    # If categories are big match
         self.categories = self.get_categories()     # Heuristic GOAT (average similarity to goal categories)
+
+    def __str__(self):
+        s = ""
+        s += "Title: " + self.title
+        s += "\nURL: " + self.URL
+        s += "\nLinks: " + str(self.links)
+        s += "\nCategories: " + str(self.categories)
+        return s + "\n"
 
     def read(self):
         return self.title, self.URL, self.links, self.categories #,self.navigations
@@ -35,7 +43,9 @@ class WikiRead:
         content_links = content.find_all("a", {"href": re.compile('/wiki/*')})
         links = []
         for l in content_links:
-            links.append(l['href'][6:])
+            link = l['href']
+            if ":" not in link:
+                links.append(l['href'][6:])
 
         self.links = links[3:]
         return links[3:]
