@@ -2,6 +2,7 @@ import WikiRead
 from WikiRead import WikiRead as wr
 import random
 import sklearn # in pip as "scikit-learn"
+import IO
 
 RANDOM = "https://en.wikipedia.org/wiki/Special:Random"
 
@@ -37,19 +38,19 @@ class GenTestData:
             links = curr_article.get_page_links()
             random.shuffle(links)
 
-            # Finds article that has not already been collected.
-            next_article_url = links.pop(0)
-            while next_article_url in self.all_links:
-                next_article_url = links.pop(0)
+            # Sheers article that have already been collected.
+            for a in links:
+                if a in self.all_links:
+                    links.remove(a)
 
             # Ensures article has specified minimum of outgoing links and has not been recorded.
-            next_article = wr(WikiRead.full_link(next_article_url))
-            while len(next_article.get_page_links()) < self.outgoing_links \
-                or next_article_url in self.all_links:
+            next_article = wr(WikiRead.full_link(links.pop(0)))
+            while len(next_article.get_page_links()) < self.outgoing_links:
                 next_article_url = links.pop(0)
                 next_article = wr(WikiRead.full_link(next_article_url))
 
             # Records links.
+            self.all_links.append(curr_article.URL)
             self.all_links.extend(links)
 
             # Adds article to path and updates current article.
@@ -66,6 +67,19 @@ def gen_raw_test_data(size, outgoing_links, path_length):
 
     return paths
 
+
+# WARNING: Not functional. Passes d_id as URL for some reason.
+def gen_testdata_file(out_file, n, outgoing_links, path_distance):
+    i = 1
+    for p in path_distance:
+        for o in outgoing_links:
+            print(f"Reading Dataset {i}...", end='')
+            raw_data = GenTestData(n, o, p)
+            print(f"done\nWriting Dataset {i}...", end='')
+            if i == 1:  IO.write_test_data_csv(raw_data, out_file)
+            else:       IO.append_test_data_csv(raw_data, out_file)
+            print("done")
+            i+=1
 
 # Currently only uses categories as dataset. Article text could also be useful, but lets see how this goes.
 # NOT CURRENTLY FUNCTIONAL! Need to change data to starting and goal article (need article model).

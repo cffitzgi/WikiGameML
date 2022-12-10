@@ -6,6 +6,8 @@ import IO
 
 RANDOM = "https://en.wikipedia.org/wiki/Special:Random"
 
+
+
 if __name__ == '__main__':
     # Quick debugging reference for WikiRead.
     #article = wr("https://en.wikipedia.org/wiki/Special:Random")
@@ -18,18 +20,42 @@ if __name__ == '__main__':
     #raw_data = gen("https://en.wikipedia.org/wiki/Adolf_Hitler", 50, 5).gen()
     #IO.write_test_dat_csv([raw_data], 'test.csv')
 
+    out_file = 'dataset_1.csv'
+
+    #GenTestData.gen_testdata_file(out_file, 50, [50, 100], [3, 5, 10])
+    #exit()
+
+    print("Reading Dataset 1...", end='')
     raw_data = GenTestData.gen_raw_test_data(50, 50, 3)
-    IO.write_test_dat_csv(raw_data, 'data_1.csv')
+    print("done\nWriting Dataset 1...", end='')
+    IO.write_test_data_csv(raw_data, out_file)
+
+    print("done\nReading Dataset 2...", end='')
     raw_data = GenTestData.gen_raw_test_data(50, 100, 3)
-    IO.append_test_dat_csv(raw_data, 'data_1.csv')
+    print("done\nWriting Dataset 2...", end='')
+    IO.append_test_data_csv(raw_data, out_file)
+
+    print("done\nReading Dataset 3...", end='')
     raw_data = GenTestData.gen_raw_test_data(50, 50, 5)
-    IO.append_test_dat_csv(raw_data, 'data_1.csv')
+    print("done\nWriting Dataset 3...", end='')
+    IO.append_test_data_csv(raw_data, out_file)
+
+    print("done\nReading Dataset 4...", end='')
     raw_data = GenTestData.gen_raw_test_data(50, 100, 5)
-    IO.append_test_dat_csv(raw_data, 'data_1.csv')
+    print("done\nWriting Dataset 4...", end='')
+    IO.append_test_data_csv(raw_data, out_file)
+
+    print("done\nReading Dataset 5...", end='')
     raw_data = GenTestData.gen_raw_test_data(50, 50, 10)
-    IO.append_test_dat_csv(raw_data, 'data_1.csv')
+    print("done\nWriting Dataset 5...", end='')
+    IO.append_test_data_csv(raw_data, out_file)
+
+    print("done\nReading Dataset 6...", end='')
     raw_data = GenTestData.gen_raw_test_data(50, 100, 10)
-    IO.append_test_dat_csv(raw_data, 'data_1.csv')
+    print("done\nWriting Dataset 6...", end='')
+    IO.append_test_data_csv(raw_data, out_file)
+    print("done")
+
     exit()
 
     # Old debugging code that may be useful as a template later.
@@ -40,7 +66,7 @@ if __name__ == '__main__':
     raw_data.extend(GenTestData.gen_raw_test_data(50, 50, 10))
     raw_data.extend(GenTestData.gen_raw_test_data(50, 100, 10))
     '''
-    IO.write_test_dat_csv(raw_data, 'test.csv')
+    IO.write_test_data_csv(raw_data, 'test.csv')
     exit()
 
     # Generates multiple datasets.

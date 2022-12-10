@@ -104,9 +104,11 @@ class WikiRead:
     def get_categories(self):
         if self.categories is not None:
             return self.categories
-
-        cat_raw = self.soup.find("div", id="mw-normal-catlinks")
-        raw_links = cat_raw.find_all("a", {"href": re.compile('/wiki/*')})[1:]
+        try:
+            cat_raw = self.soup.find("div", id="mw-normal-catlinks")
+            raw_links = cat_raw.find_all("a", {"href": re.compile('/wiki/*')})[1:]
+        except AttributeError:
+            return []
         cat_links = []
         for l in raw_links:
             cat_links.append(l['href'][15:])
