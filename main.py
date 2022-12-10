@@ -70,7 +70,7 @@ if __name__ == '__main__':
     n = 5 #initial depth from starting_article
     #start loop:
         #run A* search
-        #if not found, expand to n+1 from starting_article 
+        #if not found, expand to n+1 from starting_article
 
     exit()
 
