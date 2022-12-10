@@ -20,9 +20,8 @@ class WikiRead:
         self.navigations = self.get_navigation()    # If categories are big match
         self.categories = self.get_categories()     # Heuristic GOAT (average similarity to goal categories)
 
-
     def read(self):
-        return self.title, self.URL, self.links, self.navigations, self.categories
+        return self.title, self.URL, self.links, self.categories #,self.navigations
 
     def get_page_title(self):
         return self.soup.find("title").text[:-12]
@@ -36,7 +35,7 @@ class WikiRead:
         content_links = content.find_all("a", {"href": re.compile('/wiki/*')})
         links = []
         for l in content_links:
-            links.append(l['href'])
+            links.append(l['href'][6:])
 
         self.links = links[3:]
         return links[3:]
@@ -96,23 +95,34 @@ class WikiRead:
         raw_links = cat_raw.find_all("a", {"href": re.compile('/wiki/*')})[1:]
         cat_links = []
         for l in raw_links:
-            cat_links.append(l['href'])
+            cat_links.append(l['href'][15:])
 
         self.categories = cat_links
         return cat_links
 
+def full_category(short_category):
+    return "https://en.wikipedia.org/wiki/Category:" + short_category
+
+def full_link(short_link):
+    return "https://en.wikipedia.org/wiki/" + short_link
+
+
 def how_useless(l1, l2):
-    if type(l1) is int:
+    if l1 is None:
         print("List 1 is not a list")
         return
-    if type(l2) is int:
+    if l2 is None:
         print("List 2 is not a list")
         return
 
     print(f'1st List Count: {len(l1)}')
     print(f'2nd List Count: {len(l2)}')
     count = 0
+    unique = []
     for n in l2:
         if n in l1:
             count += 1
+        else:
+            unique.append(n)
     print(f'Overlap: {count}')
+    print(unique)
