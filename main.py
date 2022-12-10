@@ -30,6 +30,24 @@ if __name__ == '__main__':
     IO.append_test_dat_csv(raw_data, 'data_1.csv')
     raw_data = GenTestData.gen_raw_test_data(50, 100, 10)
     IO.append_test_dat_csv(raw_data, 'data_1.csv')
+
+    #collect start and end URL's for game
+    starting_article = input("Please enter a Wikipedia URL to start from...")
+    target_article = input("Please enter a Wikipedia URL to end with...")
+    #if starting_article is not a valid link?
+        #starting_article = input("Please enter a Wikipedia URL to start from...") #ask again
+    #if target_article is not a valid link?
+        #target_article = input("Please enter a Wikipedia URL to end with...") #ask again
+    #if starting_article is not already in database?
+        #do 3-deep search from connected articles (i.e. add all to database)
+    #if target_article is not already in database?
+        #do 3-deep search from connected articles (i.e. add all to database)
+    n = 5 #initial depth from starting_article
+    #start loop:
+        #run A* search
+        #if not found, expand to n+1 from starting_article 
+        
+
     exit()
 
     # Old debugging code that may be useful as a template later.
