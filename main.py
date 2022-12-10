@@ -20,7 +20,7 @@ if __name__ == '__main__':
     #raw_data = gen("https://en.wikipedia.org/wiki/Adolf_Hitler", 50, 5).gen()
     #IO.write_test_dat_csv([raw_data], 'test.csv')
 
-    out_file = 'dataset_1.csv'
+    out_file = 'datatest.csv'
 
     #GenTestData.gen_testdata_file(out_file, 50, [50, 100], [3, 5, 10])
     #exit()
@@ -34,6 +34,9 @@ if __name__ == '__main__':
     raw_data = GenTestData.gen_raw_test_data(50, 100, 3)
     print("done\nWriting Dataset 2...", end='')
     IO.append_test_data_csv(raw_data, out_file)
+    print("done")
+
+    #exit()
 
     print("done\nReading Dataset 3...", end='')
     raw_data = GenTestData.gen_raw_test_data(50, 50, 5)

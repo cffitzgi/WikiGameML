@@ -35,7 +35,7 @@ class GenTestData:
         # For path length
         for i in range(self.path_length):
             # gets links and shuffles them to exclude redundant random picks.
-            links = curr_article.get_page_links()
+            links = curr_article.get_page_links().copy()
             random.shuffle(links)
 
             # Sheers article that have already been collected.
@@ -50,7 +50,7 @@ class GenTestData:
                 next_article = wr(WikiRead.full_link(next_article_url))
 
             # Records links.
-            self.all_links.append(curr_article.URL)
+            links.append(curr_article.URL.split('/')[-1])
             self.all_links.extend(links)
 
             # Adds article to path and updates current article.
