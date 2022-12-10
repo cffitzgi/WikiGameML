@@ -3,7 +3,6 @@ import WikiRead
 import GenTestData
 from GenTestData import GenTestData as gen
 import IO
-import requests
 import demo
 
 RANDOM = "https://en.wikipedia.org/wiki/Special:Random"
