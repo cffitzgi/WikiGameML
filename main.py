@@ -3,7 +3,7 @@ import WikiRead
 import GenTestData
 from GenTestData import GenTestData as gen
 import IO
-import requests
+import demo
 
 RANDOM = "https://en.wikipedia.org/wiki/Special:Random"
 
@@ -44,6 +44,8 @@ if __name__ == '__main__':
     IO.append_test_data_csv(raw_data, out_file)
     print("done")
 
+    demo.demo()
+
     #exit()
 
     print("done\nGenerating Dataset 3...", end='')
@@ -67,26 +69,7 @@ if __name__ == '__main__':
     IO.append_test_data_csv(raw_data, out_file)
     print("done")
 
-    #collect start and end URL's for game
-    starting_article = input("Please enter a Wikipedia URL to start from...")
-    target_article = input("Please enter a Wikipedia URL to end with...")
-    #if starting_article is not a valid link?
-    try:
-        page = requests.get(starting_article)
-        page2 = requests.get(target_article)
-    except:
-        print("Invalid URL") #ask again
-        exit()
-    #if starting_article is not already in database?
-        #do 3-deep search from connected articles (i.e. add all to database)
-    #if target_article is not already in database?
-        #do 3-deep search from connected articles (i.e. add all to database)
-    n = 3 #initial depth from starting_article
-    #add all articles n=3 deep to dataset, if not already searched
-    #start loop:
-        #run A* search over current database
-        #if not found, expand to n+1 from starting_article
-    #print path
+    
 
     exit()
 
