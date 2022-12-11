@@ -6,14 +6,16 @@ import IO
 
 RANDOM = "https://en.wikipedia.org/wiki/Special:Random"
 
+
 class TooFewOutgoingLinks(Exception):
     pass
 
-# Generates a single test-data path of length n starting from start_link, with each article have at least k outgoing links
+
+# Generates a single testdata path of length n starting at start_link, with each article have at least k outgoing links
 class GenTestData:
     path = []
     all_links = []
-    ## TODO: Store a list of all the links already collected to avoid going in circles/redundent path length.
+
     def __init__(self, start_link, outgoing_links, path_length):
         self.outgoing_links = outgoing_links
         self.path_length = path_length
@@ -60,6 +62,7 @@ class GenTestData:
         return self.path
 
 
+# Generates size number of testing data given parameters
 def gen_raw_test_data(size, outgoing_links, path_length):
     paths = [[]]
     for i in range(size):
@@ -67,6 +70,8 @@ def gen_raw_test_data(size, outgoing_links, path_length):
 
     return paths
 
+
+# Generates size number of testing data with same starting article given parameters
 def gen_raw_test_data(starting_link, size, outgoing_links, path_length):
     paths = [[]]
     for i in range(size):
@@ -74,18 +79,20 @@ def gen_raw_test_data(starting_link, size, outgoing_links, path_length):
 
     return paths
 
-# WARNING: Not functional. Passes d_id as URL for some reason.
+
+# Generates and writes to outfile n article paths for each combination of outgoing_links and path_distance values.
 def gen_testdata_file(out_file, n, outgoing_links, path_distance):
     i = 1
     for p in path_distance:
         for o in outgoing_links:
-            print(f"Reading Dataset {i}...", end='')
-            raw_data = GenTestData(n, o, p)
+            print(f"Generating Dataset {i}...", end='')
+            raw_data = gen_raw_test_data(n, o, p)
             print(f"done\nWriting Dataset {i}...", end='')
             if i == 1:  IO.write_test_data_csv(raw_data, out_file)
             else:       IO.append_test_data_csv(raw_data, out_file)
             print("done")
             i+=1
+
 
 # Currently only uses categories as dataset. Article text could also be useful, but lets see how this goes.
 # NOT CURRENTLY FUNCTIONAL! Need to change data to starting and goal article (need article model).

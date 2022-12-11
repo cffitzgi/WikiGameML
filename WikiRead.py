@@ -2,14 +2,18 @@ from bs4 import BeautifulSoup as bs
 import requests
 import re
 
+RANDOM = "https://en.wikipedia.org/wiki/Special:Random"
+
 # TODO: Look into Wikipedia's edit page to read an article's unformatted text content.
 
 # TODO: Split into the scrapper controller class and a data model class.
+
 
 class WikiRead:
     links = None
     navigations = None
     categories = None
+
     def __init__(self, url):
         self.page = requests.get(url)
         self.soup = bs(self.page.content, "html.parser")
@@ -20,9 +24,7 @@ class WikiRead:
         self.soup = self.soup.find("div", id="content")
 
         self.links = self.get_page_links()          # Check to see if it contains the goal.
-        #self.navigations = self.get_navigation()    # If categories are big match
         self.categories = self.get_categories()     # Heuristic GOAT (average similarity to goal categories)
-
 
     def __str__(self):
         s = ""
@@ -32,11 +34,15 @@ class WikiRead:
         s += "\nCategories: " + str(self.categories)
         return s + "\n"
 
+    # Returns all relevant information as tuple
     def read(self):
-        return self.title, self.URL, self.links, self.categories #,self.navigations
+        return self.title, self.URL, self.links, self.categories
 
+    # Returns or finds
     def get_page_title(self):
-        return self.soup.find("title").text[:-12]
+        if self.title is None:
+            self.title = self.soup.find("title").text[:-12]
+        return self.title
 
     def get_page_links(self):
         if self.links is not None:
@@ -52,7 +58,7 @@ class WikiRead:
                 links.append(l['href'][6:])
 
         self.links = links[3:]
-        return links[3:]
+        return self.links
 
     # [Deprecated] Content will be contained in links (few exceptions are not useful).
     def get_infobox(self):
@@ -83,7 +89,7 @@ class WikiRead:
 
         return sidebar_links
 
-    # Often overlaps, but not always, worth gathering.
+    # [Deprecated] Often overlaps with links, but not always.
     def get_navigation(self):
         if self.navigations is not None:
             return self.navigations
@@ -101,6 +107,7 @@ class WikiRead:
         self.navigations = nav_links
         return nav_links
 
+    # Gets articles wikipedia categories.
     def get_categories(self):
         if self.categories is not None:
             return self.categories
@@ -116,13 +123,18 @@ class WikiRead:
         self.categories = cat_links
         return cat_links
 
+
+# Formats category to be full wikipedia link
 def full_category(short_category):
     return "https://en.wikipedia.org/wiki/Category:" + short_category
 
+
+# Formats link id to be full wikipedia link.
 def full_link(short_link):
     return "https://en.wikipedia.org/wiki/" + short_link
 
 
+# Determines how much overlap is between list1 and list2
 def how_useless(l1, l2):
     if l1 is None:
         print("List 1 is not a list")
