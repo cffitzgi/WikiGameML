@@ -5,12 +5,12 @@ import IO
 import demo
 
 RANDOM = "https://en.wikipedia.org/wiki/Special:Random"
-out_file = 'datatest.csv'
+out_file = '1-data_set.csv'
 
 
 def making_bacon(size, k, n):
     print("Generating Bacon Paths...", end='')
-    bacon = GenTestData.gen_raw_test_data("https://en.wikipedia.org/wiki/Kevin_Bacon", size, k, n)
+    bacon = GenTestData.gen_raw_test_data(size, k, n, starting_link="https://en.wikipedia.org/wiki/Kevin_Bacon")
     print("done\nWriting Bacon Paths...", end='')
     IO.write_test_data_csv(bacon, 'bacon.csv')
     print("done")
@@ -18,7 +18,6 @@ def making_bacon(size, k, n):
 
 
 if __name__ == '__main__':
-
     #demo.demo()
     #exit()
 

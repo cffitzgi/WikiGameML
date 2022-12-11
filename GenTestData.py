@@ -61,7 +61,7 @@ class GenTestData:
 
         return self.path
 
-
+'''
 # Generates size number of testing data given parameters
 def gen_raw_test_data(size, outgoing_links, path_length):
     paths = [[]]
@@ -69,10 +69,10 @@ def gen_raw_test_data(size, outgoing_links, path_length):
         paths.append(GenTestData(RANDOM, outgoing_links, path_length).gen())
 
     return paths
-
+'''
 
 # Generates size number of testing data with same starting article given parameters
-def gen_raw_test_data(starting_link, size, outgoing_links, path_length):
+def gen_raw_test_data(size, outgoing_links, path_length, starting_link=RANDOM):
     paths = [[]]
     for i in range(size):
         paths.append(GenTestData(starting_link, outgoing_links, path_length).gen())
@@ -81,9 +81,9 @@ def gen_raw_test_data(starting_link, size, outgoing_links, path_length):
 
 
 # Generates and writes to outfile n article paths for each combination of outgoing_links and path_distance values.
-def gen_testdata_file(out_file, n, outgoing_links, path_distance):
+def gen_testdata_file(out_file, n, outgoing_links, path_length):
     i = 1
-    for p in path_distance:
+    for p in path_length:
         for o in outgoing_links:
             print(f"Generating Dataset {i}...", end='')
             raw_data = gen_raw_test_data(n, o, p)

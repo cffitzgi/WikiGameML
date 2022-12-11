@@ -10,8 +10,9 @@ RANDOM = "https://en.wikipedia.org/wiki/Special:Random"
 
 
 class WikiRead:
+    title = None
+    url = None
     links = None
-    navigations = None
     categories = None
 
     def __init__(self, url):
