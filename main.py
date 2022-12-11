@@ -26,12 +26,19 @@ if __name__ == '__main__':
     #GenTestData.gen_testdata_file(out_file, 50, [50, 100], [3, 5, 10])
     #exit()
 
-    print("Reading Dataset 1...", end='')
+    print("Generating Bacon Paths...", end='')
+    bacon = GenTestData.gen_raw_test_data("https://en.wikipedia.org/wiki/Kevin_Bacon", 50, 100, 10)
+    print("done\nWriting Bacon Paths...", end='')
+    IO.write_test_data_csv(bacon, 'bacon.csv')
+    print("done")
+    exit()
+
+    print("Generating Dataset 1...", end='')
     raw_data = GenTestData.gen_raw_test_data(50, 50, 3)
     print("done\nWriting Dataset 1...", end='')
     IO.write_test_data_csv(raw_data, out_file)
 
-    print("done\nReading Dataset 2...", end='')
+    print("done\nGenerating Dataset 2...", end='')
     raw_data = GenTestData.gen_raw_test_data(50, 100, 3)
     print("done\nWriting Dataset 2...", end='')
     IO.append_test_data_csv(raw_data, out_file)
@@ -39,22 +46,22 @@ if __name__ == '__main__':
 
     #exit()
 
-    print("done\nReading Dataset 3...", end='')
+    print("done\nGenerating Dataset 3...", end='')
     raw_data = GenTestData.gen_raw_test_data(50, 50, 5)
     print("done\nWriting Dataset 3...", end='')
     IO.append_test_data_csv(raw_data, out_file)
 
-    print("done\nReading Dataset 4...", end='')
+    print("done\nGenerating Dataset 4...", end='')
     raw_data = GenTestData.gen_raw_test_data(50, 100, 5)
     print("done\nWriting Dataset 4...", end='')
     IO.append_test_data_csv(raw_data, out_file)
 
-    print("done\nReading Dataset 5...", end='')
+    print("done\nGenerating Dataset 5...", end='')
     raw_data = GenTestData.gen_raw_test_data(50, 50, 10)
     print("done\nWriting Dataset 5...", end='')
     IO.append_test_data_csv(raw_data, out_file)
 
-    print("done\nReading Dataset 6...", end='')
+    print("done\nGenerating Dataset 6...", end='')
     raw_data = GenTestData.gen_raw_test_data(50, 100, 10)
     print("done\nWriting Dataset 6...", end='')
     IO.append_test_data_csv(raw_data, out_file)

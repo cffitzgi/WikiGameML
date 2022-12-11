@@ -67,6 +67,12 @@ def gen_raw_test_data(size, outgoing_links, path_length):
 
     return paths
 
+def gen_raw_test_data(starting_link, size, outgoing_links, path_length):
+    paths = [[]]
+    for i in range(size):
+        paths.append(GenTestData(starting_link, outgoing_links, path_length).gen())
+
+    return paths
 
 # WARNING: Not functional. Passes d_id as URL for some reason.
 def gen_testdata_file(out_file, n, outgoing_links, path_distance):
