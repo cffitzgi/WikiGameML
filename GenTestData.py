@@ -81,7 +81,7 @@ def gen_raw_test_data(size, outgoing_links, path_length, starting_link=RANDOM):
 
 
 # Generates and writes to outfile n article paths for each combination of outgoing_links and path_distance values.
-def gen_testdata_file(out_file, n, outgoing_links, path_length):
+def new_testdata_file(out_file, n, outgoing_links, path_length):
     i = 1
     for p in path_length:
         for o in outgoing_links:
@@ -90,6 +90,18 @@ def gen_testdata_file(out_file, n, outgoing_links, path_length):
             print(f"done\nWriting Dataset {i}...", end='')
             if i == 1:  IO.write_test_data_csv(raw_data, out_file)
             else:       IO.append_test_data_csv(raw_data, out_file)
+            print("done")
+            i+=1
+
+# Generates and writes to outfile n article paths for each combination of outgoing_links and path_distance values.
+def add_testdata_file(out_file, n, outgoing_links, path_length):
+    i = int(IO.get_last_id(out_file) / 50) + 1
+    for p in path_length:
+        for o in outgoing_links:
+            print(f"Generating Dataset {i}...", end='')
+            raw_data = gen_raw_test_data(n, o, p)
+            print(f"done\nWriting Dataset {i}...", end='')
+            IO.append_test_data_csv(raw_data, out_file)
             print("done")
             i+=1
 

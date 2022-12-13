@@ -5,7 +5,6 @@ import IO
 import demo
 
 RANDOM = "https://en.wikipedia.org/wiki/Special:Random"
-out_file = '1-data_set.csv'
 
 
 def making_bacon(size, k, n):
@@ -28,8 +27,16 @@ if __name__ == '__main__':
     #article = wr("https://en.wikipedia.org/wiki/Kevin_Bacon")
     #article = wr("https://en.wikipedia.org/wiki/Wikipedia")
 
-    GenTestData.gen_testdata_file(out_file, 50, [50, 100], [3, 5, 10])
-    exit()
+    out_file = '1-data_set.csv'
+
+    min_articles = [50, 100, 150, 200]
+    path_length = [3, 4, 5, 6, 7]
+
+    # 20 Datasets
+    #GenTestData.add_testdata_file(out_file, 50, [200], [5])
+    #GenTestData.add_testdata_file(out_file, 50, [50, 100, 150, 200], [6, 7])
+
+    GenTestData.add_testdata_file(out_file, 50, [200], [7])
 
     '''
     print("Generating Dataset 1...", end='')
