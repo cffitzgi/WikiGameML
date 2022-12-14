@@ -32,6 +32,10 @@ class Vertex:
         # return vertex heuristics value
         return self.h
 
+    def get_url(self):
+        # return article URL
+        return self.url
+
     def get_weight(self, neighbor):
         # return weights of edges connected to vertex
         return self.connected_to[neighbor]
