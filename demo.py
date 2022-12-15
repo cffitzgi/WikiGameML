@@ -5,8 +5,8 @@ def demo():
     target_article = input("Please enter a Wikipedia URL to end with...")
     #if starting_article is not a valid link?
     try:
-        page = requests.get(starting_article)
-        page2 = requests.get(target_article)
+        requests.get(starting_article)
+        requests.get(target_article)
     except:
         print("Invalid URL") #ask again
         exit()
