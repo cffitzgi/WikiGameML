@@ -11,6 +11,10 @@ class Vertex:
     def add_neighbor(self, neighbor, weight=0):
         # Add an entry to the connected_to dict with a given
         # weight
+        if self.connected_to[neighbor] == 0:
+            self.connected_to[neighbor] = weight
+        else:
+            self.connected_to[neighbor] = self.connected_to[neighbor] + 1
         self.connected_to[neighbor] = weight
 
     def set_h(self, h):
@@ -62,6 +66,13 @@ class Graph:
         self.vertices_list[new_vertex.id] = new_vertex
         return new_vertex
 
+    def add_vertex3(self, title):
+         # increment counter when adding vertex
+        self.num_vertices = self.num_vertices + 1
+        new_vertex = Vertex(title, "", {}, {})
+        self.vertices_list[title] = new_vertex
+        return new_vertex
+
     def get_vertex(self, n):
         # check if vertex exists, return if True
         if n in self.vertices_list:
@@ -76,9 +87,9 @@ class Graph:
     def add_edge(self, s, f, cost=0):
         # add edge to graph; s = start node; e = end node
         if s not in self.vertices_list:
-            self.add_vertex(s)
+            self.add_vertex3(s)
         if f not in self.vertices_list:
-            self.add_vertex(f)
+            self.add_vertex3(f)
         self.vertices_list[s].add_neighbor(self.vertices_list[f], cost)
 
     def get_vertices(self):

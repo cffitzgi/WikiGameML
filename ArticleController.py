@@ -1,4 +1,10 @@
+import ArticleModel
+
 class Controller:
-    def ReadFromFile(self, file):
-        print('Unimplemented')
-        #TODO: Unimplemented
+    def AssembleGraph(self, vertices):
+        graph = ArticleModel.Graph()
+        for vertex in vertices:
+            graph.add_vertex(vertex)
+            for link in vertex.connected_to:
+                graph.add_edge(vertex.id, link)
+        return graph
