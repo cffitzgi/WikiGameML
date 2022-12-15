@@ -57,16 +57,18 @@ def get_last_id(path):
         return int(file.readlines()[-1].split(',')[0])
 
 def read_test_data(path):
-    with open(path, 'r', newline='', encoding='None') as dataset:
-        reader = csv.reader(dataset, delimiter = ',')
+    with open(path, 'r', newline='', encoding='utf-16') as dataset:
+        fieldnames = ['d_id', 'title', 'url', 'links', 'categories']
+        reader = csv.DictReader(dataset)
+
         vertices = {}
         for row in reader:
-            title = row["title"]
-            url = row["url"]
-            links = row["links"]
-            categories = row["categories"]
+            title = row['title']
+            url = row['url']
+            links = row['links']
+            categories = row['categories']
             temp_vertex = ArticleModel.Vertex(title, url, links, categories)
-            vertices[temp_vertex.id] += temp_vertex
+            vertices[title] = temp_vertex
         return vertices
 
         #header = next(reader)

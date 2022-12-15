@@ -9,8 +9,8 @@ class Vertex:
         self.g = 0
 
     def add_neighbor(self, neighbor, weight=0):
-        # Add an entry to the connected_to dict with a given
-        # weight
+        # Add an entry to the connected_to dict with a given weight
+        # TODO: Seems to be passing Vertex instead of key value. Can be fixed here or on line 93.
         if self.connected_to[neighbor] == 0:
             self.connected_to[neighbor] = weight
         else:
@@ -91,6 +91,8 @@ class Graph:
         if f not in self.vertices_list:
             self.add_vertex3(f)
         self.vertices_list[s].add_neighbor(self.vertices_list[f], cost)
+        # TODO: Seems to be passing Vertex instead of key value.
+        #   Can be fixed here or on line 14.
 
     def get_vertices(self):
         # return keys of vertices in Graph

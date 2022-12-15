@@ -1,10 +1,13 @@
 import ArticleModel
 
-class Controller:
-    def AssembleGraph(self, vertices):
-        graph = ArticleModel.Graph()
-        for vertex in vertices:
-            graph.add_vertex(vertex)
-            for link in vertex.connected_to:
-                graph.add_edge(vertex.id, link)
-        return graph
+
+def AssembleGraph(vertices: dict):
+    graph = ArticleModel.Graph()
+    for key, value in vertices.items():
+        graph.add_vertex(value)
+        for link in value.connected_to:
+            graph.add_edge(key, link)
+    return graph
+
+#class Controller:
+

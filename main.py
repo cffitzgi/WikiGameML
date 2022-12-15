@@ -3,7 +3,7 @@ import WikiRead
 import GenTestData
 import IO
 import CategoryHeuristic as ch
-#import demo
+import demo
 
 RANDOM = "https://en.wikipedia.org/wiki/Special:Random"
 
@@ -21,7 +21,7 @@ def TestDataGeneration(out_file, datasetsize=50, min_articles=[50, 100, 150, 200
 
 
 if __name__ == '__main__':
-    print(ch.CategoryHeuristic("Former_kingdoms_in_Ireland", "Kingdom_of_Sicily"))  # 2
-    print(ch.CategoryHeuristic("Former_kingdoms_in_Ireland", "Fictional_kingdoms")) # 3
-    print(ch.CategoryHeuristic("Former_kingdoms_in_Ireland", "Chieftainships"))     # 4
-    print(ch.CategoryHeuristic("Former_kingdoms_in_Ireland", "Monarchies"))         # 3
+    print(ch.category_heuristic("Former_kingdoms_in_Ireland", "Kingdom_of_Sicily"))  # 2
+    print(ch.category_heuristic("Former_kingdoms_in_Ireland", "Fictional_kingdoms")) # 3
+    print(ch.category_heuristic("Former_kingdoms_in_Ireland", "Chieftainships"))     # 4
+    print(ch.category_heuristic("Former_kingdoms_in_Ireland", "Monarchies"))         # 3
