@@ -16,8 +16,8 @@ def run_demo(graph_map):
         print("Invalid URL") #ask again
         exit()
     check = 0
-    starting_vertex = {}
-    ending_vertex = {}
+    starting_vertex = 0
+    ending_vertex = 0
     for vertex in graph_map.get_vertices():
         if not starting_vertex:
             if vertex.url == starting_article:
@@ -31,7 +31,7 @@ def run_demo(graph_map):
             continue
     if check == 2:
             #run A* search over current database
-        cost, path = astar(starting_vertex, ending_vertex)
+        cost, path = astar(starting_vertex, ending_vertex, graph_map)
             #print path
         print("astar: " + path)
     else:
@@ -42,10 +42,10 @@ def run_demo(graph_map):
     #if target_article is not already in database?
         #do 3-deep wiki search from connected articles (i.e. add all to database)
 
-def astar(starting_node, goal_node):
+def astar(starting_node: ArticleModel.Vertex, goal_node: ArticleModel.Vertex, nodes: ArticleModel.Graph):
     # complete the function body: f = g + h
     path = {}
-    path[starting_node.g] = starting_node
+    path[starting_node.g] = starting_node.title
     paths = {}
     cost = 0
     if starting_node == goal_node:
@@ -53,7 +53,7 @@ def astar(starting_node, goal_node):
         return tempCost, path
     children = starting_node.connected_to
     for x in children:
-        tempCost, tempPath = astar(x, goal_node)
+        tempCost, tempPath = astar(graph.vertices_list[x], goal_node, nodes)
         if tempPath is not None:
             f = tempCost
             f_limit = cost
