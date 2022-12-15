@@ -1,9 +1,10 @@
 class Vertex:
-    def __init__(self, title, url, links, heuristic = 0):
+    def __init__(self, title, url, links, categories, heuristic = 0):
         self.id = title #title of article
         self.connected_to = links #links
         self.parent = None
         self.url = url
+        self.categories = categories
         self.h = heuristic
         self.g = 0
 
@@ -54,10 +55,10 @@ class Graph:
         self.vertices_list[vertex.id] = new_vertex
         return new_vertex
     
-    def add_vertex2(self, title, url, links):
+    def add_vertex2(self, title, url, links, categories):
         #increment counter when adding vertex
         self.num_vertices = self.num_vertices + 1
-        new_vertex = Vertex(title, url, links)
+        new_vertex = Vertex(title, url, links, categories)
         self.vertices_list[new_vertex.id] = new_vertex
         return new_vertex
 
