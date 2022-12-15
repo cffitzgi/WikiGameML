@@ -11,15 +11,14 @@ def demo():
         print("Invalid URL") #ask again
         exit()
     #if starting_article is not already in database?
-        #do 3-deep search from connected articles (i.e. add all to database)
+        #do 3-deep wiki search from connected articles (i.e. add all to database)
     #if target_article is not already in database?
-        #do 3-deep search from connected articles (i.e. add all to database)
-    n = 3 #initial depth from starting_article
-    #add all articles n=3 deep to dataset, if not already searched
-    #start loop:
+        #do 3-deep wiki search from connected articles (i.e. add all to database)
+
         #run A* search over current database
-        #if not found, expand to n+1 from starting_article
-    #print path
+    cost, path = astar(starting_article, target_article)
+        #print path
+    print("astar: " + path)
 
 def astar(starting_node, goal_node):
     # complete the function body: f = g + h
