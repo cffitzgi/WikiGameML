@@ -3,11 +3,74 @@ import requests
 import re
 
 RANDOM = "https://en.wikipedia.org/wiki/Special:Random"
+TOP_CAT = "https://en.wikipedia.org/wiki/Category:Main_topic_classifications"
 
 # TODO: Look into Wikipedia's edit page to read an article's unformatted text content.
 
 # TODO: Split into the scrapper controller class and a data model class.
 
+class CategoryRead:
+    title = None
+    url = None
+    parent_categories = None
+    subcategories = None
+    articles = None
+
+    def __init__(self, title):
+        self.title = title
+        self.url = full_category(title)
+
+        self.page = requests.get(self.url)
+        self.soup = bs(self.page.content, "html.parser")
+
+        self.get_subcategories()
+        self.get_parent_categories()
+        # self.get_articles()
+
+    def get_subcategories(self):
+        if self.subcategories is not None: return self.subcategories
+
+        try:
+            raw = self.soup.find("div", id="mw-subcategories")
+            cats_raw = raw.find_all("a", {"href": re.compile('/wiki/Category:*')})
+        except AttributeError:
+            self.subcategories = []
+            return self.subcategories
+
+        cats = []
+        for c in cats_raw:
+            cats.append(c['href'][15:])
+
+        self.subcategories = cats
+        return self.subcategories
+
+    def get_parent_categories(self):
+        if self.parent_categories is not None: return self.parent_categories
+        if self.url == TOP_CAT:
+            self.parent_categories = []
+            return self.parent_categories
+
+        raw = self.soup.find("div", id="mw-normal-catlinks")
+        cats_raw = raw.find_all("a", {"href": re.compile('/wiki/Category:*')})
+        cats = []
+        for c in cats_raw:
+            cats.append(c['href'][15:])
+
+        self.parent_categories = cats
+        return self.parent_categories
+
+    def get_articles(self):
+        if self.articles is not None: return self.articles
+
+        raw = self.soup.find("div", id="mw-category mw-category-columns")
+        articles_raw = raw.find_all("a", {"href": re.compile('/wiki/*')})
+        articles = []
+        for a in articles_raw:
+            if ":" not in a['href']:
+                articles.append(a['href'][6:])
+
+        self.articles = articles
+        return self.articles
 
 class WikiRead:
     title = None
