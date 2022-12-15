@@ -19,12 +19,14 @@ def run_demo(graph):
     starting_vertex = {}
     ending_vertex = {}
     for vertex in graph.get_vertices():
-        if vertex.url == starting_article:
-            starting_vertex = vertex
-            check = check + 1
-        if vertex.url == target_article:
-            ending_vertex = vertex
-            check = check + 1
+        if not starting_vertex:
+            if vertex.url == starting_article:
+                starting_vertex = vertex
+                check = check + 1
+        if not ending_vertex:
+            if vertex.url == target_article:
+                ending_vertex = vertex
+                check = check + 1
         if check == 2:
             continue
     if check == 2:
@@ -77,6 +79,6 @@ if len(vertices) > 0:
         #assemble the graph
     graph = ArticleController.Controller.AssembleGraph(vertices)
         #run the demo
-    run_demo()
+    run_demo(graph)
 else: #we effed up
     print("Error. Dataset not found.")
