@@ -45,7 +45,7 @@ def run_demo(graph_map):
 def astar(starting_node: ArticleModel.Vertex, goal_node: ArticleModel.Vertex, nodes: ArticleModel.Graph):
     # complete the function body: f = g + h
     path = {}
-    path[starting_node.g] = starting_node.title
+    path[starting_node.g] = starting_node.id
     paths = {}
     cost = 0
     if starting_node == goal_node:
