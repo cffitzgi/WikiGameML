@@ -76,8 +76,8 @@ vertices = IO.read_test_data("1-data_set.csv")
     #check that data is read correctly
 if len(vertices) > 0:
         #assemble the graph
-    graph = ArticleController.AssembleGraph(vertices)
+    #graph = ArticleController.AssembleGraph(vertices)
         #run the demo
-    run_demo(graph)
+    run_demo(vertices)
 else: #we effed up
     print("Error. Dataset not found.")

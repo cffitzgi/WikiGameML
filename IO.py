@@ -1,6 +1,7 @@
 from WikiRead import WikiRead as wr
 import csv
 import ArticleModel
+import ast
 
 dataset_count = 0
 
@@ -65,7 +66,7 @@ def read_test_data(path):
         for row in reader:
             title = row['title']
             url = row['url']
-            links = row['links']
+            links = ast.literal_eval(row['links'])
             categories = row['categories']
             temp_vertex = ArticleModel.Vertex(title, url, links, categories)
             vertices[title] = temp_vertex

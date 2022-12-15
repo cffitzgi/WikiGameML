@@ -1,7 +1,10 @@
 class Vertex:
     def __init__(self, title, url, links, categories, heuristic = 0):
         self.id = title #title of article
-        self.connected_to = links #links
+        self.connected_to = {}
+        for i in links:
+            self.add_neighbor(i)
+        #self.connected_to = links #links
         self.parent = None
         self.url = url
         self.categories = categories
@@ -11,11 +14,11 @@ class Vertex:
     def add_neighbor(self, neighbor, weight=0):
         # Add an entry to the connected_to dict with a given weight
         # TODO: Seems to be passing Vertex instead of key value. Can be fixed here or on line 93.
-        if self.connected_to[neighbor] == 0:
-            self.connected_to[neighbor] = weight
-        else:
+        if neighbor in self.connected_to.keys():
             self.connected_to[neighbor] = self.connected_to[neighbor] + 1
-        self.connected_to[neighbor] = weight
+        else:
+            self.connected_to[neighbor] = weight
+            #self.connected_to[neighbor] = weight
 
     def set_h(self, h):
         # set vertex heuristics value
