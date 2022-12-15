@@ -25,6 +25,8 @@ def run_demo(graph):
         if vertex.url == target_article:
             ending_vertex = vertex
             check = check + 1
+        if check == 2:
+            continue
     if check == 2:
             #run A* search over current database
         cost, path = astar(starting_vertex, ending_vertex)
