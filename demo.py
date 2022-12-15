@@ -10,7 +10,6 @@ def run_demo(graph_map):
     #if starting_article is not a valid link?
     try:
         requests.get(starting_article)
-
         requests.get(target_article)
     except:
         print("Invalid URL") #ask again
