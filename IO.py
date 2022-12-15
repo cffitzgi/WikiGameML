@@ -1,6 +1,6 @@
 from WikiRead import WikiRead as wr
-import numpy as np
 import csv
+import ArticleModel
 
 dataset_count = 0
 
@@ -59,6 +59,16 @@ def get_last_id(path):
 def read_test_data(path):
     with open(path, 'r', newline='', encoding='None') as dataset:
         reader = csv.reader(dataset, delimiter = ',')
-        header = next(reader)
-        data = np.array(list(reader)).astype(str)
-        return data
+        vertices = {}
+        for row in reader:
+            title = row["title"]
+            url = row["url"]
+            links = row["links"]
+            categories = row["categories"]
+            temp_vertex = ArticleModel.Vertex(title, url, links, categories)
+            vertices[temp_vertex.id] += temp_vertex
+        return vertices
+
+        #header = next(reader)
+        #data = np.array(list(reader)).astype(str)
+        #return data
