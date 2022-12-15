@@ -1,6 +1,7 @@
 import requests
 import IO
 import ArticleController
+import ArticleModel
 
 #runs demo
 def run_demo(graph_map):
@@ -76,8 +77,8 @@ vertices = IO.read_test_data("1-data_set.csv")
     #check that data is read correctly
 if len(vertices) > 0:
         #assemble the graph
-    #graph = ArticleController.AssembleGraph(vertices)
+    graph = ArticleController.AssembleGraph(vertices)
         #run the demo
-    run_demo(vertices)
+    run_demo(graph)
 else: #we effed up
     print("Error. Dataset not found.")
