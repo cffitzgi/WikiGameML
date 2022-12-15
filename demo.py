@@ -3,7 +3,7 @@ import IO
 import ArticleController
 
 #runs demo
-def run_demo(graph):
+def run_demo(graph_map):
     #collect start and end URL's for game
     starting_article = input("Please enter a Wikipedia URL to start from...")
     target_article = input("Please enter a Wikipedia URL to end with...")
@@ -18,7 +18,7 @@ def run_demo(graph):
     check = 0
     starting_vertex = {}
     ending_vertex = {}
-    for vertex in graph.get_vertices():
+    for vertex in graph_map.get_vertices():
         if not starting_vertex:
             if vertex.url == starting_article:
                 starting_vertex = vertex
