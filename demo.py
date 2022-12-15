@@ -6,8 +6,8 @@ import ArticleModel
 #runs demo
 def run_demo(graph_map):
     #collect start and end URL's for game
-    starting_article = input("Please enter a Wikipedia URL to start from...")
-    target_article = input("Please enter a Wikipedia URL to end with...")
+    starting_article = input("Please enter a Wikipedia URL to start from... ")
+    target_article = input("Please enter a Wikipedia URL to end with... ")
     #if starting_article is not a valid link?
     try:
         requests.get(starting_article)
