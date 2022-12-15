@@ -1,5 +1,9 @@
 import requests
-def demo():
+import IO
+import ArticleController
+
+#runs demo
+def run_demo():
     #collect start and end URL's for game
     starting_article = input("Please enter a Wikipedia URL to start from...")
     target_article = input("Please enter a Wikipedia URL to end with...")
@@ -50,3 +54,13 @@ def astar(starting_node, goal_node):
 
     print('No Path Found')
     return None, None
+    #read data from csv file
+vertices = IO.read_test_data("1-data_set.csv")
+    #check that data is read correctly
+if len(vertices) > 0:
+        #assemble the graph
+    graph = ArticleController.Controller.AssembleGraph(vertices)
+        #run the demo
+    run_demo()
+else: #we effed up
+    print("Error. Dataset not found.")
