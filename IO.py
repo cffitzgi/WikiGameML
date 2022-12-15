@@ -70,6 +70,7 @@ def read_test_data(path):
             categories = row['categories']
             temp_vertex = ArticleModel.Vertex(title, url, links, categories)
             vertices[title] = temp_vertex
+        print("Vertices read from file.")
         return vertices
 
         #header = next(reader)

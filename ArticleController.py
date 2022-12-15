@@ -7,6 +7,7 @@ def AssembleGraph(vertices: dict):
         graph.add_vertex(value)
         #for link in iter(value.connected_to):
         #    graph.add_edge(key, value.connected_to[link])
+    print("Graph assembled.")
     return graph
 
 #class Controller:

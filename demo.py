@@ -15,6 +15,7 @@ def run_demo(graph_map):
     except:
         print("Invalid URL") #ask again
         exit()
+    print("URL's validated.")
     check = 0
     starting_vertex = 0
     ending_vertex = 0
@@ -22,15 +23,18 @@ def run_demo(graph_map):
         if not starting_vertex:
             if vertex.url == starting_article:
                 starting_vertex = vertex
+                print(vertex.id + " article verified in dataset.")
                 check = check + 1
         if not ending_vertex:
             if vertex.url == target_article:
                 ending_vertex = vertex
+                print(vertex.id + " article verified in dataset.")
                 check = check + 1
         if check == 2:
             continue
     if check == 2:
             #run A* search over current database
+        print("Beginning A* search.")
         cost, path = astar(starting_vertex, ending_vertex, graph_map)
             #print path
         print("astar: " + path)
@@ -49,9 +53,11 @@ def astar(starting_node: ArticleModel.Vertex, goal_node: ArticleModel.Vertex, no
     paths = {}
     cost = 0
     if starting_node == goal_node:
+        print("Goal article reached. Path found.")
         tempCost = starting_node.h + starting_node.g
         return tempCost, path
     children = starting_node.connected_to
+    print("Beginning search on children.")
     for x in children:
         tempCost, tempPath = astar(nodes.vertices_list[x], goal_node, nodes)
         if tempPath is not None:
