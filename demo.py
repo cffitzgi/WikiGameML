@@ -3,26 +3,40 @@ import IO
 import ArticleController
 
 #runs demo
-def run_demo():
+def run_demo(graph):
     #collect start and end URL's for game
     starting_article = input("Please enter a Wikipedia URL to start from...")
     target_article = input("Please enter a Wikipedia URL to end with...")
     #if starting_article is not a valid link?
     try:
         requests.get(starting_article)
+
         requests.get(target_article)
     except:
         print("Invalid URL") #ask again
         exit()
+    check = 0
+    starting_vertex = {}
+    ending_vertex = {}
+    for vertex in graph.get_vertices():
+        if vertex.url == starting_article:
+            starting_vertex = vertex
+            check = check + 1
+        if vertex.url == target_article:
+            ending_vertex = vertex
+            check = check + 1
+    if check == 2:
+            #run A* search over current database
+        cost, path = astar(starting_vertex, ending_vertex)
+            #print path
+        print("astar: " + path)
+    else:
+        print("One or both articles do not exist in the dataset")
+
     #if starting_article is not already in database?
         #do 3-deep wiki search from connected articles (i.e. add all to database)
     #if target_article is not already in database?
         #do 3-deep wiki search from connected articles (i.e. add all to database)
-
-        #run A* search over current database
-    cost, path = astar(starting_article, target_article)
-        #print path
-    print("astar: " + path)
 
 def astar(starting_node, goal_node):
     # complete the function body: f = g + h
