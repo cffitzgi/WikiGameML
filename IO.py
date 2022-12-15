@@ -1,4 +1,5 @@
 from WikiRead import WikiRead as wr
+import numpy as np
 import csv
 
 dataset_count = 0
@@ -55,12 +56,9 @@ def get_last_id(path):
     with open(path, 'r', newline='', encoding='utf-16') as file:
         return int(file.readlines()[-1].split(',')[0])
 
-
-# Not yet implemented.
 def read_test_data(path):
-    with open(path, 'r', newline='') as csv:
-        raise NotImplemented()
-        # TODO: Need WikiRead to be separated into the web scraping controller and wiki model.
-
-
-
+    with open(path, 'r', newline='', encoding='None') as dataset:
+        reader = csv.reader(dataset, delimiter = ',')
+        header = next(reader)
+        data = np.array(list(reader)).astype(str)
+        return data
