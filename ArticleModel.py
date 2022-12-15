@@ -97,9 +97,19 @@ class Graph:
         # TODO: Seems to be passing Vertex instead of key value.
         #   Can be fixed here or on line 14.
 
-    def get_vertices(self):
+    def get_keys(self):
         # return keys of vertices in Graph
         return self.vertices_list.keys()
+
+    def get_vertices(self):
+        return self.vertices_list.values()
+
+    def get_urls(self):
+        #return list of urls in Graph
+        urls = []
+        for vertex in self.vertices_list.values():
+            urls.append(vertex.url)
+        return urls
 
     def __iter__(self):
         # override __iter__ to return iterable of vertices
