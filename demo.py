@@ -53,7 +53,7 @@ def astar(starting_node: ArticleModel.Vertex, goal_node: ArticleModel.Vertex, no
         return tempCost, path
     children = starting_node.connected_to
     for x in children:
-        tempCost, tempPath = astar(graph.vertices_list[x], goal_node, nodes)
+        tempCost, tempPath = astar(nodes.vertices_list[x], goal_node, nodes)
         if tempPath is not None:
             f = tempCost
             f_limit = cost
