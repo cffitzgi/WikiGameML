@@ -59,7 +59,7 @@ def astar(starting_node: ArticleModel.Vertex, goal_node: ArticleModel.Vertex, no
     children = starting_node.connected_to
     print("Beginning search on children.")
     for x in children:
-        tempCost, tempPath = astar(nodes.vertices_list[x], goal_node, nodes)
+        tempCost, tempPath = astar(x in nodes.vertices_list, goal_node, nodes)
         if tempPath is not None:
             f = tempCost
             f_limit = cost
