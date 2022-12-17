@@ -46,6 +46,7 @@ def run_demo(graph_map):
     #if target_article is not already in database?
         #do 3-deep wiki search from connected articles (i.e. add all to database)
 
+#for generic greedy/A* search
 def astar(starting_node: ArticleModel.Vertex, goal_node: ArticleModel.Vertex, nodes: ArticleModel.Graph):
     # complete the function body: f = g + h
     path = {}
@@ -75,6 +76,38 @@ def astar(starting_node: ArticleModel.Vertex, goal_node: ArticleModel.Vertex, no
         for a in paths:
             if paths[a][0] == cost:
                 return (a,paths[a][0])
+
+#for heuristic / root-node
+def astar2(starting_node: ArticleModel.Vertex, goal_node: ArticleModel.Vertex):
+    # complete the function body: f = g + h
+    path = {}
+    path[starting_node.g] = starting_node.id
+    paths = {}
+    cost = 0
+    if starting_node == goal_node:
+        print("Goal article reached. Path found.")
+        tempCost = starting_node.h + starting_node.g
+        return tempCost, path
+    children = starting_node.connected_to
+    print("Beginning search on children.")
+    for x in children:
+        tempCost, tempPath = astar2(x, goal_node)
+        if tempPath is not None:
+            f = tempCost
+            f_limit = cost
+            if tempCost < f_limit:
+                f_limit = tempCost
+            path[x.g] = tempPath
+            paths[x.g] = [tempCost, path]
+    if len(paths) > 0:
+        cost = 1000000
+        for a in paths:
+            if paths[a][0] <= cost:
+                cost = paths[a][0]
+        for a in paths:
+            if paths[a][0] == cost:
+                return (a,paths[a][0])
+
 
     print('No Path Found')
     return None, None
