@@ -1,9 +1,8 @@
-from WikiScrape import WikiRead as wr
-import WikiScrape
-import GenTestData
-import IO
-import CategoryHeuristic as ch
-import demo
+from DataGen import GenTestData
+from DataGen import IO
+from Agent import CategoryHeuristic as ch
+from Network import ArticleController as c
+
 
 RANDOM = "https://en.wikipedia.org/wiki/Special:Random"
 
@@ -21,7 +20,15 @@ def TestDataGeneration(out_file, datasetsize=50, min_articles=[50, 100, 150, 200
 
 
 if __name__ == '__main__':
-    print(ch.category_heuristic("Former_kingdoms_in_Ireland", "Kingdom_of_Sicily"))  # 2
-    print(ch.category_heuristic("Former_kingdoms_in_Ireland", "Fictional_kingdoms")) # 3
-    print(ch.category_heuristic("Former_kingdoms_in_Ireland", "Chieftainships"))     # 4
-    print(ch.category_heuristic("Former_kingdoms_in_Ireland", "Monarchies"))         # 3
+    network = c.ReadNetwork("TestSave.json")
+
+    exit()
+        #read data from csv file
+    articles = IO.read_test_data("1-data_set.csv")
+        #check that data is read correctly
+    if len(articles) > 0:
+            #assemble the network
+        net = c.AssembleNetwork(articles)
+        c.WriteNetwork("TestSave.json", net)
+    else: #we effed up
+        print("Error. Dataset not found.")
