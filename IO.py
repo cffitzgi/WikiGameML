@@ -1,4 +1,4 @@
-from WikiRead import WikiRead as wr
+from WikiScrape import WikiRead as wr
 import csv
 import ArticleModel
 import ast

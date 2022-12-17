@@ -1,5 +1,5 @@
-import WikiRead
-from WikiRead import WikiRead as wr
+import WikiScrape
+from WikiScrape import WikiRead as wr
 import random
 import sklearn # in pip as "scikit-learn"
 import IO

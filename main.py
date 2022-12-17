@@ -1,5 +1,5 @@
-from WikiRead import WikiRead as wr
-import WikiRead
+from WikiScrape import WikiRead as wr
+import WikiScrape
 import GenTestData
 import IO
 import CategoryHeuristic as ch

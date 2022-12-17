@@ -1,5 +1,5 @@
-import WikiRead
-from WikiRead import CategoryRead as cr
+import WikiScrape
+from WikiScrape import CategoryRead as cr
 
 TOP = "https://en.wikipedia.org/wiki/Category:Main_topic_classifications"
 
