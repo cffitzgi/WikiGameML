@@ -5,16 +5,21 @@ from Wiki.WikiScrape import WikiRead as wr
 
 
 class Agent:
-    def __init__(self, network: ArticleModel.WikiNetwork, start, end):
+    def __init__(self, network: ArticleModel.WikiNetwork, start, end, heuristic):
         self.network = network
         w_start = wr(start)
         w_end = wr(end)
 
-        self.network.add_article_content(w_start.title, w_start.url, w_start.links, w_start.categories)
-        self.network.add_article_content(w_end.title, w_end.url, w_end.links, w_end.categories)
+        self.start = self.network.add_article_content(w_start.title, w_start.url, w_start.links, w_start.categories)
+        self.end = self.network.add_article_content(w_end.title, w_end.url, w_end.links, w_end.categories)
+        self.current = self.start
 
-        self.start = self.network.get_article(w_start.title)
-        self.start = self.network.get_article(w_start.title)
+        self.h_vals = {self.end.id: 0,
+                       self.start.id: heuristic(self.start.categories, self.end.categories)}
+
+    #def A_star_step(self):
+        #for l in self.current.links:
+
 
 
 #runs demo

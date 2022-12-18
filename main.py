@@ -4,6 +4,9 @@ from Agent import CategoryHeuristic as ch
 from Network import ArticleController as c
 from Agent.WikiGamePlayer import Agent
 
+# ----- TODO: Modify BFS-Heuristic to take two articles in.
+# TODO: Finish implementing agent.
+# TODO: Fix network to weight loaded articles lower than hollow ones.
 
 RANDOM = "https://en.wikipedia.org/wiki/Special:Random"
 

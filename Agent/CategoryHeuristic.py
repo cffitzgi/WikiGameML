@@ -1,22 +1,29 @@
 from Wiki.WikiScrape import CategoryRead as cr
+import Wiki
 
 TOP = "https://en.wikipedia.org/wiki/Category:Main_topic_classifications"
 
 
+
+def cat_title(c):
+    return c.title
+
+
+# Takes in two category lists, returns number of steps between them.
 def category_heuristic(c1, c2):
     # Holds most relevant category model.
-    cat1 = cr(c1)
-    cat2 = cr(c2)
-
-    # Stores every parent category grouped by step.
-    cat1_all = [[cat1.title]]
-    cat2_all = [[cat2.title]]
+    cat1 = list(map(cr, c1))
+    cat2 = list(map(cr, c2))
 
     # Stores every parent category recorded.
-    f_cat1 = [cat1.title]
-    f_cat2 = [cat2.title]
+    f_cat1 = list(map(cat_title, cat1))
+    f_cat2 = list(map(cat_title, cat2))
 
-# While lists do not share a category
+    # Stores every parent category grouped by step.
+    cat1_all = [f_cat1.copy()]
+    cat2_all = [f_cat2.copy()]
+
+    # While lists do not share a category
     while set(f_cat1).isdisjoint(f_cat2):
 
         # If category list 1 is not at top level...
@@ -54,7 +61,13 @@ def category_heuristic(c1, c2):
 
     return h_val
 
+if __name__ == '__main__':
+    test_c1 = Wiki.WikiScrape.WikiRead("https://en.wikipedia.org/wiki/Ireland").categories
+    #test_c2 = Wiki.WikiScrape.WikiRead("https://en.wikipedia.org/wiki/Japan").categories       # 2
+    test_c2 = Wiki.WikiScrape.WikiRead("https://en.wikipedia.org/wiki/Kevin_Bacon").categories  # 6
 
+
+    print(category_heuristic(test_c1, test_c2))
 
 
 

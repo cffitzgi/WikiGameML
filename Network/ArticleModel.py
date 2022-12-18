@@ -1,17 +1,23 @@
 
 class Article:
-    def __init__(self, title, url, links, categories, heuristic=None):
-        self.id = title #title of article
-        self.connected_to = {}
+    def __init__(self, title, url, links, categories, hollow=False):
+        self.id = title  # title of article
 
+        self.hollow = hollow
+        if hollow:
+            self.url = None
+            self.links = None
+            self.categories = None
+            return
+
+        self.connected_to = {}
         for i in links:
             self.add_neighbor(i)
 
-        #self.parent = None
+        # self.parent = None
         self.url = url
         self.categories = categories
-        self.h = heuristic
-        self.g = 0
+        #self.g = 0
 
     def add_neighbor(self, neighbor, weight=0):
         # Add an entry to the connected_to dict with a given weight
@@ -21,13 +27,12 @@ class Article:
         else:
             self.connected_to[neighbor] = weight
 
-    def set_h(self, h):
-        # set article heuristics value
-        self.h = h
-
     def __str__(self):
         # override __str__ for printing
         return(str(self.id) + ' connected to: ' + str([x.id for x in self.connected_to]))
+
+    def is_hollow(self):
+        return self.hollow
 
     def get_connections(self):
         # return keys from connected_to dict
@@ -36,10 +41,6 @@ class Article:
     def get_id(self):
         # return article id's
         return self.id
-
-    def get_h(self):
-        # return article heuristics value
-        return self.h
 
     def get_url(self):
         # return article URL
@@ -60,7 +61,7 @@ class WikiNetwork:
     def add_article(self, article: Article):
         a_id = article.get_id()
         if a_id in self.articles.keys():
-            if self.articles[a_id].get_url() != "":
+            if not self.articles[a_id].is_hollow():
                 return self.articles[a_id]
         else:
             self.num_vertices = self.num_vertices + 1
@@ -71,7 +72,7 @@ class WikiNetwork:
 
     def add_article_content(self, title, url, links, categories):
         if title in self.articles.keys():
-            if self.articles[title].get_url() != "":
+            if not self.articles[title].is_hollow():
                 return self.articles[title]
         else:
             # increment counter when adding article
@@ -87,7 +88,7 @@ class WikiNetwork:
 
         # increment counter when adding article
         self.num_vertices = self.num_vertices + 1
-        new_vertex = Article(title, "", {}, {})
+        new_vertex = Article(title, None, None, None, hollow=True)
         self.articles[title] = new_vertex
         return new_vertex
 
