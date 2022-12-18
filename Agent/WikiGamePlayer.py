@@ -17,7 +17,7 @@ class Agent:
         self.h_vals = {self.end.id: 0,
                        self.start.id: heuristic(self.start.categories, self.end.categories)}
 
-    #def A_star_step(self):
+    #def astar_step(self):
         #for l in self.current.links:
 
 

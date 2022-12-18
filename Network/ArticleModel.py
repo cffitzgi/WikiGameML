@@ -1,7 +1,7 @@
 
 class Article:
     def __init__(self, title, url, links, categories, hollow=False):
-        self.id = title  # title of article
+        self.id = title
 
         self.hollow = hollow
         if hollow:
@@ -10,6 +10,8 @@ class Article:
             self.categories = None
             return
 
+
+        self.id = url[30:]  # title of article
         self.connected_to = {}
         for i in links:
             self.add_neighbor(i)
@@ -71,9 +73,9 @@ class WikiNetwork:
         return new_vertex
 
     def add_article_content(self, title, url, links, categories):
-        if title in self.articles.keys():
-            if not self.articles[title].is_hollow():
-                return self.articles[title]
+        if url[30:] in self.articles.keys():
+            if not self.articles[url[30:]].is_hollow():
+                return self.articles[url[30:]]
         else:
             # increment counter when adding article
             self.num_vertices = self.num_vertices + 1
