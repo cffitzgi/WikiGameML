@@ -19,7 +19,7 @@ def run_demo(graph_map):
     check = 0
     starting_vertex = 0
     ending_vertex = 0
-    for vertex in graph_map.get_vertices():
+    for vertex in graph_map.get_articles():
         if not starting_vertex:
             if vertex.url == starting_article:
                 starting_vertex = vertex

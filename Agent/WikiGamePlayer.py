@@ -1,12 +1,20 @@
 import requests
 from DataGen import IO
 from Network import ArticleModel, ArticleController
+from Wiki.WikiScrape import WikiRead as wr
 
-class Player:
-    def __init__(self, network, start, end):
+
+class Agent:
+    def __init__(self, network: ArticleModel.WikiNetwork, start, end):
         self.network = network
-        self.start = start
-        self.end = end
+        w_start = wr(start)
+        w_end = wr(end)
+
+        self.network.add_article_content(w_start.title, w_start.url, w_start.links, w_start.categories)
+        self.network.add_article_content(w_end.title, w_end.url, w_end.links, w_end.categories)
+
+        self.start = self.network.get_article(w_start.title)
+        self.start = self.network.get_article(w_start.title)
 
 
 #runs demo
@@ -25,7 +33,7 @@ def run_demo(graph_map):
     check = 0
     starting_vertex = 0
     ending_vertex = 0
-    for vertex in graph_map.get_vertices():
+    for vertex in graph_map.get_articles():
         if not starting_vertex:
             if vertex.url == starting_article:
                 starting_vertex = vertex
@@ -113,17 +121,3 @@ def astar2(starting_node: ArticleModel.Article, goal_node: ArticleModel.Article)
         for a in paths:
             if paths[a][0] == cost:
                 return (a,paths[a][0])
-
-
-    print('No Path Found')
-    return None, None
-    #read data from csv file
-vertices = IO.read_test_data("../1-data_set.csv")
-    #check that data is read correctly
-if len(vertices) > 0:
-        #assemble the network
-    graph = ArticleController.AssembleNetwork(vertices)
-        #run the demo
-    run_demo(graph)
-else: #we effed up
-    print("Error. Dataset not found.")

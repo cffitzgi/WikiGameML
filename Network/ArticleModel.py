@@ -58,20 +58,33 @@ class WikiNetwork:
         self.num_vertices = 0
 
     def add_article(self, article: Article):
-        # increment counter when adding article
-        self.num_vertices = self.num_vertices + 1
+        a_id = article.get_id()
+        if a_id in self.articles.keys():
+            if self.articles[a_id].get_url() != "":
+                return self.articles[a_id]
+        else:
+            self.num_vertices = self.num_vertices + 1
+
         new_vertex = article
         self.articles[article.id] = new_vertex
         return new_vertex
 
     def add_article_content(self, title, url, links, categories):
-        # increment counter when adding article
-        self.num_vertices = self.num_vertices + 1
+        if title in self.articles.keys():
+            if self.articles[title].get_url() != "":
+                return self.articles[title]
+        else:
+            # increment counter when adding article
+            self.num_vertices = self.num_vertices + 1
+
         new_vertex = Article(title, url, links, categories)
         self.articles[new_vertex.id] = new_vertex
         return new_vertex
 
     def add_article_hollow(self, title):
+        if title in self.articles.keys():
+            return self.articles[title]
+
         # increment counter when adding article
         self.num_vertices = self.num_vertices + 1
         new_vertex = Article(title, "", {}, {})
@@ -80,7 +93,7 @@ class WikiNetwork:
 
     def get_article(self, n):
         # check if article exists, return if True
-        if n in self.articles:
+        if n in self.articles.keys():
             return self.articles[n]
         else:
             return None
@@ -91,17 +104,17 @@ class WikiNetwork:
 
     def add_edge(self, s, f, cost=0):
         # add edge to network; s = start node; e = end node
-        if s not in self.articles:
+        if s not in self.articles.keys():
             self.add_article_hollow(s)
-        if f not in self.articles:
+        if f not in self.articles.keys:
             self.add_article_hollow(f)
         self.articles[s].add_neighbor(self.articles[f], cost)
 
-    def get_keys(self):
+    def get_article_ids(self):
         # return keys of vertices in WikiNetwork
         return self.articles.keys()
 
-    def get_vertices(self):
+    def get_articles(self):
         return self.articles.values()
 
     def get_urls(self):
